@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-
+import './pages/FirstPage.dart';
+import './pages/SecondPage.dart';
+import 'LoginPage.dart';
 void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
@@ -7,10 +9,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return new MaterialApp(
       theme: new ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.purple,
       ),
-      home: new HomePage(),
-    );
+      home: new LoginPage(),
+      
+      );
+  
   }
 }
 
@@ -34,29 +38,51 @@ class HomePage extends StatelessWidget {
               accountName: new Text('Shiva prasad kar'),
             ),
             new ListTile(
-              title: new Text("page 1"),
+              title: new Text("First Page"),
               trailing: new Icon(Icons.arrow_forward),
-              onTap: FirstPage(),
+             onTap: (){
+               Navigator.of(context).pop();
+               Navigator.of(context).push(new MaterialPageRoute(
+                 builder: (BuildContext context)=>new FirstPage('First Page')));
+               
+             },
+             ),
+            new Divider(),
+            new ListTile(
+              title: new Text("Second Page"),
+              trailing: new Icon(Icons.arrow_forward),
+              onTap: (){
+               Navigator.of(context).pop();
+               Navigator.of(context).push(new MaterialPageRoute(
+                 builder: (BuildContext context)=>new SecondPage('Second Page')));
+               
+             },
             ),
             new Divider(),
             new ListTile(
-              title: new Text("page 2"),
+              title: new Text("Third Page"),
               trailing: new Icon(Icons.arrow_forward),
-            ),
-            new Divider(),
-            new ListTile(
-              title: new Text("page 3"),
-              trailing: new Icon(Icons.arrow_forward),
+              onTap: (){
+               Navigator.of(context).pop();
+               Navigator.of(context).push(new MaterialPageRoute(
+                 builder: (BuildContext context)=>new SecondPage('Third Page')));
+               
+             },
             ),
             new Divider(),
           ],
         ),
       ),
-      body: new Container(
-        child: new Center(child: new Text('Hpme Page')),
+      body: new RaisedButton(
+        child: new Text('Go to log in'),
+        onPressed: (){
+        Navigator.of(context).pushReplacement(new MaterialPageRoute(
+                 builder: (BuildContext context)=>new LoginPage()));
+        },
       ),
+      
     );
+    
   }
 
-  FirstPage() {}
 }
