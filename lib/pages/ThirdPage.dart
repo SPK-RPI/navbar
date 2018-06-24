@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 class ThirdPage extends StatelessWidget {
- final String title;
+  static String tag = 'third-page';
   @override
-   ThirdPage(this.title);
   Widget build(BuildContext context){
    return new Scaffold(
 appBar: new AppBar(
-title: new Text(title),
+title: new Text('Third Page'),
 
 ),
 body: new Center(
-child:new Text(title),
+child:new Text('Third Page'),
 ) 
    );
 }

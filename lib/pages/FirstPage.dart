@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 class FirstPage extends StatelessWidget {
- final String title;
+  static String tag = 'First-page';
   @override
-   FirstPage(this.title);
   Widget build(BuildContext context){
    return new Scaffold(
 appBar: new AppBar(
-title: new Text(title),
+title: new Text('First Page'),
 
 ),
 body: new Container(

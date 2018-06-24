@@ -1,88 +1,39 @@
 import 'package:flutter/material.dart';
+import 'LoginPage.dart';
+import 'home.dart';
 import './pages/FirstPage.dart';
 import './pages/SecondPage.dart';
-import 'LoginPage.dart';
+import './pages/ThirdPage.dart';
+import 'RegisterPage.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new MaterialApp(
-      theme: new ThemeData(
-        primarySwatch: Colors.purple,
-      ),
-      home: new LoginPage(),
-      
-      );
+  FirebaseAnalytics analytics = new FirebaseAnalytics();
+  final routes = <String, WidgetBuilder>{
+    LoginPage.tag: (context) => LoginPage(),
+     RegisterPage.tag: (context) => RegisterPage(),
+    HomePage.tag: (context) => HomePage(),
+    FirstPage.tag:(context)=>FirstPage(),
+    SecondPage.tag:(context)=>SecondPage(),
+    ThirdPage.tag:(context)=>ThirdPage()
+  };
+@override
   
-  }
-}
-
-class HomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: new AppBar(
-        title: new Text('Navigation bar'),
-        elevation: 10.0,
+   Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Shiva',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.lightBlue,
+        fontFamily: 'Raleway',
       ),
-      drawer: new Drawer(
-        child: new ListView(
-          children: <Widget>[
-            new UserAccountsDrawerHeader(
-              currentAccountPicture: new CircleAvatar(
-                child: new Icon(Icons.accessibility),
-                backgroundColor: Colors.white,
-              ),
-              accountEmail: new Text('shivaprasadkar50@gmail.com'),
-              accountName: new Text('Shiva prasad kar'),
-            ),
-            new ListTile(
-              title: new Text("First Page"),
-              trailing: new Icon(Icons.arrow_forward),
-             onTap: (){
-               Navigator.of(context).pop();
-               Navigator.of(context).push(new MaterialPageRoute(
-                 builder: (BuildContext context)=>new FirstPage('First Page')));
-               
-             },
-             ),
-            new Divider(),
-            new ListTile(
-              title: new Text("Second Page"),
-              trailing: new Icon(Icons.arrow_forward),
-              onTap: (){
-               Navigator.of(context).pop();
-               Navigator.of(context).push(new MaterialPageRoute(
-                 builder: (BuildContext context)=>new SecondPage('Second Page')));
-               
-             },
-            ),
-            new Divider(),
-            new ListTile(
-              title: new Text("Third Page"),
-              trailing: new Icon(Icons.arrow_forward),
-              onTap: (){
-               Navigator.of(context).pop();
-               Navigator.of(context).push(new MaterialPageRoute(
-                 builder: (BuildContext context)=>new SecondPage('Third Page')));
-               
-             },
-            ),
-            new Divider(),
-          ],
-        ),
-      ),
-      body: new RaisedButton(
-        child: new Text('Go to log in'),
-        onPressed: (){
-        Navigator.of(context).pushReplacement(new MaterialPageRoute(
-                 builder: (BuildContext context)=>new LoginPage()));
-        },
-      ),
-      
+      home: LoginPage(),
+      routes: routes,
+      navigatorObservers: [
+    new FirebaseAnalyticsObserver(analytics: analytics),
+  ],
     );
-    
   }
-
 }

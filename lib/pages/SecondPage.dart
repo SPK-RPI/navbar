@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 class SecondPage extends StatelessWidget {
- final String title;
+  static String tag = 'second-page';
   @override
-   SecondPage(this.title);
   Widget build(BuildContext context){
    return new Scaffold(
 appBar: new AppBar(
-title: new Text(title),
+title: new Text('Second Page'),
 
 ),
 body: new Container(
   
-child:new Text(title),
+child:new Text('Second Page'),
 
 ) 
    );
