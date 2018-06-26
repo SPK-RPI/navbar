@@ -8,9 +8,14 @@ appBar: new AppBar(
 title: new Text('Third Page'),
 
 ),
-body: new Center(
-child:new Text('Third Page'),
-) 
+body: new Container(
+          margin: EdgeInsets.all(10.0),
+          decoration: BoxDecoration(
+          
+              borderRadius: BorderRadius.circular(20.0), color: Color.fromRGBO(180, 202, 237,0.9)
+              
+              ),
+      )
    );
 }
 }

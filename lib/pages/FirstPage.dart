@@ -5,15 +5,17 @@ class FirstPage extends StatelessWidget {
   Widget build(BuildContext context){
    return new Scaffold(
 appBar: new AppBar(
-title: new Text('First Page'),
+  
+title: new Text('Syllabus'),
 
 ),
-body: new Container(
-child:new BottomAppBar(
-  child: new Text('This is a test'),
-)
-
-) 
+body:  new Container(
+          margin: EdgeInsets.all(10.0),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20.0), color:  Color.fromRGBO(180, 202, 237,0.9)
+              
+              ),
+      )
    );
 }
 }
