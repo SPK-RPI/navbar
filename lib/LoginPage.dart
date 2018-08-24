@@ -65,7 +65,6 @@ class _LoginPageState extends State<LoginPage> {
 
       final FirebaseUser currentUser = await _auth.currentUser();
       assert(user.uid == currentUser.uid);
-
       return user;
     }
 
@@ -81,7 +80,8 @@ class _LoginPageState extends State<LoginPage> {
           elevation: 10.0,
           minWidth: 200.0,
           height: 42.0,
-          onPressed: () => Navigator.of(context).pushReplacementNamed(HomePage.tag),
+          onPressed: () =>
+              Navigator.of(context).pushReplacementNamed(HomePage.tag),
           color: Colors.blueAccent,
           child: Text('Facebook', style: TextStyle(color: Colors.white)),
         ),
@@ -141,7 +141,7 @@ Future<File> _downloadFile(String url, String filename) async {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.lerp(
                 Radius.circular(10.0), Radius.elliptical(19.1, 121.1), 12.8)),
-            color:  Color.fromRGBO(180, 202, 237,0.9)),
+            color: Color.fromRGBO(180, 202, 237, 0.9)),
         child: ListView(
           //shrinkWrap: true,
           padding: EdgeInsets.only(left: 50.0, right: 50.0),
