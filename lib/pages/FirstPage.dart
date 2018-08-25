@@ -4,6 +4,7 @@ import 'package:open_file/open_file.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:dio/dio.dart';
+import 'package:simple_permissions/simple_permissions.dart';
 
 class FirstPage extends StatefulWidget {
   static String tag = 'first_Page';
@@ -34,6 +35,7 @@ class _FirstPageState extends State<FirstPage> {
   void initState() {
     super.initState();
     checkFile();
+    requestPermission();
   }
 
   Future<void> checkFile() async {
@@ -161,6 +163,14 @@ class _FirstPageState extends State<FirstPage> {
   }
 
 //===================================================================================================
+  requestPermission() async {
+    bool res = await SimplePermissions
+        .requestPermission(Permission.WriteExternalStorage);
+    print("permission request result is " + res.toString());
+  }
+
+//====================================================================================
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -168,12 +178,22 @@ class _FirstPageState extends State<FirstPage> {
         title: Text('Syllabus'),
       ),
       body: Container(
-          color: Colors.blue,
-       
-       padding: EdgeInsets.all(10.0),
+        padding: EdgeInsets.all(10.0),
         child: Center(
           child: Column(
             children: <Widget>[
+              new SizedBox(height: 40.0),
+              new RichText(
+                text: TextSpan(
+                  text: "First Year Syllabus",
+                  style: TextStyle(
+                      decorationStyle: TextDecorationStyle.wavy,
+                      letterSpacing: 5.0,
+                      fontWeight: FontWeight.w800,
+                      color: Colors.black,
+                      fontSize: 20.7),
+                ),
+              ),
               downloading
                   ? new Container(
                       height: 120.0,
@@ -196,39 +216,57 @@ class _FirstPageState extends State<FirstPage> {
                     )
 //============================================ After condition =========================================================
                   : Container(
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(
+                            "https://www.cpacanada.ca/-/media/site/operational/ec-education-certification/images/g10269-ec.jpg"),
+                      )),
                       height: 120.0,
                       width: 500.0,
                       child: Card(
-                        color:Color.fromRGBO(255, 255, 255, 0.6),
+                        color: Color.fromRGBO(255, 255, 255, 0.2),
                         elevation: 10.0,
                         // color: Colors.black12,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            new Text("First Year Syllabus"),
                             fStatef
                                 ? new RaisedButton(
-                                    onPressed: () => openFile(1),
                                     child: Text("Open"),
+                                    elevation: 10.0,
+                                    color: Colors.greenAccent,
+                                    onPressed: () => openFile(1),
                                   )
                                 : new RaisedButton(
-                                    onPressed: () => downloadFile(1),
+                                    elevation: 6.0,
+                                    color: Colors.blueAccent,
                                     child: Text("Download"),
+                                    onPressed: () => downloadFile(1),
                                   ),
-                            SizedBox(height: 20.0),
                           ],
                         ),
                       ),
                     ),
 //===================================================================== Second Year ==============================
               new SizedBox(height: 40.0),
+              new RichText(
+                text: TextSpan(
+                  text: "Second Year Syllabus",
+                  style: TextStyle(
+                      decorationStyle: TextDecorationStyle.wavy,
+                      letterSpacing: 5.0,
+                      fontWeight: FontWeight.w800,
+                      color: Colors.black,
+                      fontSize: 20.7),
+                ),
+              ),
               downloading1
                   ? new Container(
                       height: 120.0,
                       width: 500.0,
-
                       child: Card(
-                        color:Color.fromRGBO(255, 255, 255, 0.6),
+                        color: Color.fromRGBO(255, 255, 255, 0.6),
                         elevation: 10.0,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -245,22 +283,31 @@ class _FirstPageState extends State<FirstPage> {
                     )
 //============================================= After Condition ========================================================
                   : Container(
+                    decoration: BoxDecoration(
+                          image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(
+                            "https://www.cpacanada.ca/-/media/site/operational/ec-education-certification/images/g10269-ec.jpg"),
+                      )),
                       height: 120.0,
                       width: 500.0,
                       child: Card(
-                        color: Color.fromRGBO(255, 255, 255, 0.6),
+                        color: Color.fromRGBO(255, 255, 255, 0.2),
                         elevation: 10.0,
                         // color: Colors.black12,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            new Text("Second Year Syllabus"),
                             fStates
                                 ? new RaisedButton(
+                                    elevation: 10.0,
+                                    color: Colors.greenAccent,
                                     onPressed: () => openFile(2),
                                     child: Text("Open"),
                                   )
                                 : new RaisedButton(
+                                    elevation: 10.0,
+                                    color: Colors.blueAccent,
                                     onPressed: () => downloadFile(2),
                                     child: Text("Download"),
                                   ),
@@ -271,6 +318,17 @@ class _FirstPageState extends State<FirstPage> {
                     ),
 //================================================== Third Year =============================================================
               new SizedBox(height: 40.0),
+              new RichText(
+                text: TextSpan(
+                  text: "Third Year Syllabus",
+                  style: TextStyle(
+                      decorationStyle: TextDecorationStyle.wavy,
+                      letterSpacing: 5.0,
+                      fontWeight: FontWeight.w800,
+                      color: Colors.black,
+                      fontSize: 20.7),
+                ),
+              ),
               downloading2
                   ? new Container(
                       height: 120.0,
@@ -279,10 +337,14 @@ class _FirstPageState extends State<FirstPage> {
                         color: Color.fromRGBO(255, 255, 255, 0.6),
                         elevation: 10.0,
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
                             //SizedBox(height: 20.0),
-                            Text("Downloading...  $proSring"),
+                            Text.rich(
+                              TextSpan(
+                                text: "Downloading : $proSring",
+                              ),
+                            ),
                             new SizedBox(height: 90.0),
                             new LinearProgressIndicator(
                               value: value / 100,
@@ -297,28 +359,25 @@ class _FirstPageState extends State<FirstPage> {
 
 //=============================================== After Condition ======================================================
                   : Container(
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(
+                            "https://www.cpacanada.ca/-/media/site/operational/ec-education-certification/images/g10269-ec.jpg"),
+                      )),
                       height: 120.0,
                       width: 500.0,
                       child: Card(
-                        color: Color.fromRGBO(255, 255, 255, 0.6),
+                        color: Color.fromRGBO(255, 255, 255, 0.2),
                         elevation: 10.0,
                         // color: Colors.black12,
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
-
-                            new RichText(
-                              text: TextSpan(
-                                text: "Third Year Syllabus",
-                                style: TextStyle(
-                                  color:Colors.white,
-                                   fontSize: 20.7
-                                ),
-                              ),
-                            ),
-                            new SizedBox(height: 20.0),
+                            //new SizedBox(height: 20.0),
                             fStatet
                                 ? new RaisedButton(
+                                    color: Colors.greenAccent,
                                     elevation: 10.0,
                                     splashColor:
                                         Color.fromRGBO(247, 34, 109, 1.0),
@@ -326,6 +385,7 @@ class _FirstPageState extends State<FirstPage> {
                                     child: Text("Open"),
                                   )
                                 : new RaisedButton(
+                                    color: Colors.blueAccent,
                                     onPressed: () => downloadFile(3),
                                     child: Text("Download"),
                                   ),

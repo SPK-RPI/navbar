@@ -11,6 +11,7 @@ dependencies:
   path_provider: any
   dio: any
   open_file: ^1.0.7
+  simple_permissions: ^0.1.6
   
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

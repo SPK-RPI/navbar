@@ -10,9 +10,15 @@ import './pages/test.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 
+
 void main() => runApp(new MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => new _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   final FirebaseAnalytics analytics = new FirebaseAnalytics();
   final routes = <String, WidgetBuilder>{
     TestPage.tag: (context) => new TestPage(),
@@ -24,6 +30,17 @@ class MyApp extends StatelessWidget {
     FourthPage.tag: (context) => new FourthPage(),
     FifthPage.tag: (context) => new FifthPage(),
   };
+ 
+
+  @override
+  initState() {
+    super.initState();
+    //getPermissionStatus();
+    
+  }
+
+ 
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

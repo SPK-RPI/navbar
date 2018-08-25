@@ -13,6 +13,7 @@ import './pages/test.dart';
 class HomePage extends StatelessWidget {
   static String tag = 'home-page';
   final FirebaseUser user;
+
   HomePage({Key key, this.user}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -39,7 +40,13 @@ class HomePage extends StatelessWidget {
 //==============================================================================================
     final avtar = new UserAccountsDrawerHeader(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20.0), color: Colors.teal),
+            image: DecorationImage(
+              colorFilter: ColorFilter.mode(Colors.blue, BlendMode.color),
+                fit: BoxFit.cover,
+                image: NetworkImage(
+                    "http://sts-llc.com/wp-content/uploads/2018/04/AdobeStock_94905049-300x200.jpeg")),
+            borderRadius: BorderRadius.circular(20.0),
+            color: Colors.teal),
         margin: EdgeInsets.all(10.0),
         currentAccountPicture: new CircleAvatar(
           backgroundImage: new NetworkImage(user.photoUrl),
@@ -47,10 +54,19 @@ class HomePage extends StatelessWidget {
         accountEmail: new Text(
           user.email,
           style: TextStyle(
+            color: Colors.white,
             fontFamily: 'Schyler',
           ),
         ),
-        accountName: new Text(user.displayName));
+        accountName: new Text(
+          user.displayName,
+          style:TextStyle(
+            fontSize: 20.0,
+              color: Colors.white
+          ),
+          ),
+          
+          );
 //===============================================================================================
     final item1 = new ListTile(
       leading: Icon(Icons.library_books),
