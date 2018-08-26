@@ -21,9 +21,11 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final logo = new CircleAvatar(
-      backgroundColor: Colors.white,
+      backgroundColor: Color.fromRGBO(255, 255, 255, 0.6),
       maxRadius: 150.0,
       child: new Image(
+        fit: BoxFit.cover,
+        alignment: Alignment.center,
         image: new AssetImage('assets/information.png'),
       ),
     );
@@ -127,7 +129,7 @@ Future<File> _downloadFile(String url, String filename) async {
             style: TextStyle(
                 letterSpacing: 8.0,
                 fontFamily: 'assets/fonts/Spirax-Regular.ttf',
-                color: Colors.black54,
+                color: Colors.white,
                 fontSize: 40.0)));
 
     final orlebel = new Center(
@@ -137,8 +139,12 @@ Future<File> _downloadFile(String url, String filename) async {
     return Scaffold(
       //backgroundColor: Colors.indigoAccent,
       body: Container(
-        margin: EdgeInsets.all(8.0),
+        margin: EdgeInsets.all(1.0),
         decoration: BoxDecoration(
+            image: DecorationImage(
+                fit: BoxFit.cover,
+                image: NetworkImage(
+                    "https://media.giphy.com/media/Qgx8fFTysBHYQ/giphy.gif")),
             borderRadius: BorderRadius.all(Radius.lerp(
                 Radius.circular(10.0), Radius.elliptical(19.1, 121.1), 12.8)),
             color: Color.fromRGBO(180, 202, 237, 0.9)),

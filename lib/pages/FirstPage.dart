@@ -169,21 +169,224 @@ class _FirstPageState extends State<FirstPage> {
     print("permission request result is " + res.toString());
   }
 
-//====================================================================================
+//==================================================================================
+
+//==========================================================================================
+  Widget fybdownload() {
+    return new Container(
+      height: 120.0,
+      width: 500.0,
+      child: Card(
+        margin: EdgeInsets.all(10.0),
+        color: Color.fromRGBO(255, 255, 255, 0.8),
+        elevation: 10.0,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            new RichText(
+              text: TextSpan(
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  text: "Downloading : $proSring"),
+            ),
+
+            new Column(
+              children: <Widget>[
+                new CircularProgressIndicator(
+                  value: value / 100,
+                ),
+              ],
+            ),
+
+            //SizedBox(height: 20.0),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget fyadownload() {
+    return new Container(
+      height: 120.0,
+      width: 500.0,
+      child: Card(
+        margin: EdgeInsets.all(10.0),
+        color: Color.fromRGBO(255, 255, 255, 0.8),
+        elevation: 10.0,
+        // color: Colors.black12,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(
+              height: 50.0,
+            ),
+            fStatef
+                ? new RaisedButton(
+                    shape: StadiumBorder(
+                        side: BorderSide(
+                      style: BorderStyle.solid,
+                      //width: 30.0
+                    )),
+                    child: Text("Open"),
+                    color: Colors.greenAccent,
+                    onPressed: () => openFile(1),
+                  )
+                : new RaisedButton(
+                  shape: StadiumBorder(
+                    side:BorderSide(
+                      style:BorderStyle.solid
+                    )
+                  ),
+                    elevation: 6.0,
+                    color: Colors.blueAccent,
+                    child: Text("Download"),
+                    onPressed: () => downloadFile(1),
+                  ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget sybdownload() {
+    return new Container(
+      height: 120.0,
+      width: 500.0,
+      child: Card(
+        color: Color.fromRGBO(255, 255, 255, 0.6),
+        elevation: 10.0,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            //SizedBox(height: 20.0),
+            Text("Downloading : $proSring"),
+            new LinearProgressIndicator(
+              value: value / 100,
+              //backgroundColor: Colors.red,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget syadownload() {
+    return new Container(
+      height: 120.0,
+      width: 500.0,
+      child: Card(
+        margin: EdgeInsets.all(10.0),
+        color: Color.fromRGBO(255, 255, 255, 0.8),
+        elevation: 10.0,
+        // color: Colors.black12,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            fStates
+                ? new RaisedButton(
+                    elevation: 10.0,
+                    color: Colors.greenAccent,
+                    onPressed: () => openFile(2),
+                    child: Text("Open"),
+                  )
+                : new RaisedButton(
+                    elevation: 10.0,
+                    color: Colors.blueAccent,
+                    onPressed: () => downloadFile(2),
+                    child: Text("Download"),
+                  ),
+            SizedBox(height: 20.0),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget tybdownload() {
+    return new Container(
+      height: 120.0,
+      width: 500.0,
+      child: Card(
+        margin: EdgeInsets.all(10.0),
+        color: Color.fromRGBO(255, 255, 255, 0.6),
+        elevation: 10.0,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            //SizedBox(height: 20.0),
+            Text.rich(
+              TextSpan(
+                text: "Downloading : $proSring",
+              ),
+            ),
+            new SizedBox(height: 90.0),
+            new LinearProgressIndicator(
+              value: value / 100,
+              backgroundColor: Colors.white,
+
+              //backgroundColor: Colors.red,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget tyadownload() {
+    return Container(
+      height: 120.0,
+      width: 500.0,
+      child: Card(
+        margin: EdgeInsets.all(10.0),
+        color: Color.fromRGBO(255, 255, 255, 0.8),
+        elevation: 10.0,
+        // color: Colors.black12,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            //new SizedBox(height: 20.0),
+            fStatet
+                ? new RaisedButton(
+                    color: Colors.greenAccent,
+                    elevation: 10.0,
+                    splashColor: Color.fromRGBO(247, 34, 109, 1.0),
+                    onPressed: () => openFile(3),
+                    child: Text("Open"),
+                  )
+                : new RaisedButton(
+                    color: Colors.blueAccent,
+                    onPressed: () => downloadFile(3),
+                    child: Text("Download"),
+                  ),
+            SizedBox(height: 20.0),
+          ],
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blue,
       appBar: AppBar(
+        elevation: 10.0,
         title: Text('Syllabus'),
       ),
       body: Container(
         padding: EdgeInsets.all(10.0),
-        child: Center(
-          child: Column(
+        child: Card(
+          margin: EdgeInsets.all(8.0),
+          shape: Material().shape,
+          color: Color.fromRGBO(255, 255, 255, 0.6),
+          elevation: 8.0,
+          child: ListView(
             children: <Widget>[
               new SizedBox(height: 40.0),
               new RichText(
+                textAlign: TextAlign.center,
                 text: TextSpan(
                   text: "First Year Syllabus",
                   style: TextStyle(
@@ -195,62 +398,13 @@ class _FirstPageState extends State<FirstPage> {
                 ),
               ),
               downloading
-                  ? new Container(
-                      height: 120.0,
-                      width: 500.0,
-                      child: Card(
-                        color: Color.fromRGBO(255, 255, 255, 0.6),
-                        elevation: 10.0,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            //SizedBox(height: 20.0),
-                            Text("Downloading : $proSring"),
-                            new LinearProgressIndicator(
-                              value: value / 100,
-                              //backgroundColor: Colors.red,
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
+                  ? fybdownload()
 //============================================ After condition =========================================================
-                  : Container(
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(
-                            "https://www.cpacanada.ca/-/media/site/operational/ec-education-certification/images/g10269-ec.jpg"),
-                      )),
-                      height: 120.0,
-                      width: 500.0,
-                      child: Card(
-                        color: Color.fromRGBO(255, 255, 255, 0.2),
-                        elevation: 10.0,
-                        // color: Colors.black12,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            fStatef
-                                ? new RaisedButton(
-                                    child: Text("Open"),
-                                    elevation: 10.0,
-                                    color: Colors.greenAccent,
-                                    onPressed: () => openFile(1),
-                                  )
-                                : new RaisedButton(
-                                    elevation: 6.0,
-                                    color: Colors.blueAccent,
-                                    child: Text("Download"),
-                                    onPressed: () => downloadFile(1),
-                                  ),
-                          ],
-                        ),
-                      ),
-                    ),
+                  : fyadownload(),
 //===================================================================== Second Year ==============================
               new SizedBox(height: 40.0),
               new RichText(
+                textAlign: TextAlign.center,
                 text: TextSpan(
                   text: "Second Year Syllabus",
                   style: TextStyle(
@@ -262,63 +416,13 @@ class _FirstPageState extends State<FirstPage> {
                 ),
               ),
               downloading1
-                  ? new Container(
-                      height: 120.0,
-                      width: 500.0,
-                      child: Card(
-                        color: Color.fromRGBO(255, 255, 255, 0.6),
-                        elevation: 10.0,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            //SizedBox(height: 20.0),
-                            Text("Downloading : $proSring"),
-                            new LinearProgressIndicator(
-                              value: value / 100,
-                              //backgroundColor: Colors.red,
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
+                  ? sybdownload()
 //============================================= After Condition ========================================================
-                  : Container(
-                    decoration: BoxDecoration(
-                          image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(
-                            "https://www.cpacanada.ca/-/media/site/operational/ec-education-certification/images/g10269-ec.jpg"),
-                      )),
-                      height: 120.0,
-                      width: 500.0,
-                      child: Card(
-                        color: Color.fromRGBO(255, 255, 255, 0.2),
-                        elevation: 10.0,
-                        // color: Colors.black12,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            fStates
-                                ? new RaisedButton(
-                                    elevation: 10.0,
-                                    color: Colors.greenAccent,
-                                    onPressed: () => openFile(2),
-                                    child: Text("Open"),
-                                  )
-                                : new RaisedButton(
-                                    elevation: 10.0,
-                                    color: Colors.blueAccent,
-                                    onPressed: () => downloadFile(2),
-                                    child: Text("Download"),
-                                  ),
-                            SizedBox(height: 20.0),
-                          ],
-                        ),
-                      ),
-                    ),
+                  : syadownload(),
 //================================================== Third Year =============================================================
               new SizedBox(height: 40.0),
               new RichText(
+                textAlign: TextAlign.center,
                 text: TextSpan(
                   text: "Third Year Syllabus",
                   style: TextStyle(
@@ -330,70 +434,10 @@ class _FirstPageState extends State<FirstPage> {
                 ),
               ),
               downloading2
-                  ? new Container(
-                      height: 120.0,
-                      width: 500.0,
-                      child: Card(
-                        color: Color.fromRGBO(255, 255, 255, 0.6),
-                        elevation: 10.0,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: <Widget>[
-                            //SizedBox(height: 20.0),
-                            Text.rich(
-                              TextSpan(
-                                text: "Downloading : $proSring",
-                              ),
-                            ),
-                            new SizedBox(height: 90.0),
-                            new LinearProgressIndicator(
-                              value: value / 100,
-                              backgroundColor: Colors.white,
-
-                              //backgroundColor: Colors.red,
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
+                  ? tybdownload()
 
 //=============================================== After Condition ======================================================
-                  : Container(
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(
-                            "https://www.cpacanada.ca/-/media/site/operational/ec-education-certification/images/g10269-ec.jpg"),
-                      )),
-                      height: 120.0,
-                      width: 500.0,
-                      child: Card(
-                        color: Color.fromRGBO(255, 255, 255, 0.2),
-                        elevation: 10.0,
-                        // color: Colors.black12,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: <Widget>[
-                            //new SizedBox(height: 20.0),
-                            fStatet
-                                ? new RaisedButton(
-                                    color: Colors.greenAccent,
-                                    elevation: 10.0,
-                                    splashColor:
-                                        Color.fromRGBO(247, 34, 109, 1.0),
-                                    onPressed: () => openFile(3),
-                                    child: Text("Open"),
-                                  )
-                                : new RaisedButton(
-                                    color: Colors.blueAccent,
-                                    onPressed: () => downloadFile(3),
-                                    child: Text("Download"),
-                                  ),
-                            SizedBox(height: 20.0),
-                          ],
-                        ),
-                      ),
-                    ),
+                  : tyadownload()
             ],
           ),
         ),
