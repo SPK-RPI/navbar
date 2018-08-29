@@ -4,7 +4,7 @@ import 'package:open_file/open_file.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:dio/dio.dart';
-import 'package:simple_permissions/simple_permissions.dart';
+
 
 class FirstPage extends StatefulWidget {
   static String tag = 'first_Page';
@@ -14,6 +14,7 @@ class FirstPage extends StatefulWidget {
 
 class _FirstPageState extends State<FirstPage> {
   bool downloading = false;
+
   bool downloaded = false;
   bool downloading1 = false;
   bool downloaded1 = false;
@@ -37,9 +38,8 @@ class _FirstPageState extends State<FirstPage> {
   void initState() {
     super.initState();
     checkFile();
-    requestPermission();
+    
   }
-
   Future<void> checkFile() async {
     var dir = await getExternalStorageDirectory();
     final File file = File('${dir.path}/4.76-FYBScIT-Syllabus-2016-17.pdf');
@@ -166,11 +166,7 @@ class _FirstPageState extends State<FirstPage> {
   }
 
 //===================================================================================================
-  requestPermission() async {
-    bool res = await SimplePermissions
-        .requestPermission(Permission.WriteExternalStorage);
-    print("permission request result is " + res.toString());
-  }
+ 
 
 //==================================================================================
 
@@ -418,6 +414,7 @@ class _FirstPageState extends State<FirstPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: null,
       backgroundColor: Colors.blue,
       appBar: AppBar(
         elevation: 10.0,

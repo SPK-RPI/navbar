@@ -9,7 +9,7 @@ import './pages/FifthPage.dart';
 import './pages/test.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
-
+import 'package:simple_permissions/simple_permissions.dart';
 
 void main() => runApp(new MyApp());
 
@@ -21,6 +21,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final FirebaseAnalytics analytics = new FirebaseAnalytics();
   final routes = <String, WidgetBuilder>{
+    
     TestPage.tag: (context) => new TestPage(),
     LoginPage.tag: (context) => new LoginPage(),
     HomePage.tag: (context) => new HomePage(),
@@ -36,7 +37,7 @@ class _MyAppState extends State<MyApp> {
   initState() {
     super.initState();
     //getPermissionStatus();
-    
+    requestPermission();
   }
 
  
@@ -55,5 +56,10 @@ class _MyAppState extends State<MyApp> {
         new FirebaseAnalyticsObserver(analytics: analytics),
       ],
     );
+  }
+   requestPermission() async {
+    bool res = await SimplePermissions
+        .requestPermission(Permission.WriteExternalStorage);
+    print("permission request result is " + res.toString());
   }
 }

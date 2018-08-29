@@ -3,7 +3,7 @@ import 'home.dart';
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter/animation.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final GoogleSignIn _googleSignIn = new GoogleSignIn();
@@ -15,14 +15,42 @@ class LoginPage extends StatefulWidget {
   _LoginPageState createState() => new _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixin {
+  Animation animation;
+  AnimationController animatedContainer;
   Future<String> userDetails;
+@override
+  void initState() {
+    // TODO: implement initState
+    animatedContainer=AnimationController(
+    duration: Duration(
+       milliseconds: 2000,
+    ),
 
+          vsync: this
+    );
+    super.initState();
+    animation=Tween(
+      begin: 10.0,
+      end: 200
+      ).animate(animatedContainer)
+      ..addListener((){
+        setState((){});
+      });
+      animatedContainer.forward();
+  }
+  @override
+    void dispose() {
+      // TODO: implement dispose
+      super.dispose();
+      animatedContainer.dispose();
+    }
   @override
   Widget build(BuildContext context) {
     final logo = new CircleAvatar(
       backgroundColor: Color.fromRGBO(255, 255, 255, 0.6),
-      maxRadius: 150.0,
+      radius: 1.0+animation.value,
+      //maxRadius: 150.0,
       child: new Image(
         fit: BoxFit.cover,
         alignment: Alignment.center,
@@ -108,6 +136,7 @@ Future<File> _downloadFile(String url, String filename) async {
         shadowColor: Colors.lightBlueAccent.shade100,
         elevation: 5.0,
         child: MaterialButton(
+          
           minWidth: 200.0,
           height: 42.0,
           onPressed: () {
@@ -139,6 +168,7 @@ Future<File> _downloadFile(String url, String filename) async {
     return Scaffold(
       //backgroundColor: Colors.indigoAccent,
       body: Container(
+        
         margin: EdgeInsets.all(1.0),
         decoration: BoxDecoration(
             image: DecorationImage(

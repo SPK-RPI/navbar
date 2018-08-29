@@ -3,6 +3,7 @@ import 'LoginPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:async';
 import 'main.dart';
+
 import './pages/ThirdPage.dart';
 import './pages/FirstPage.dart';
 import './pages/SecondPage.dart';
@@ -13,8 +14,10 @@ import './pages/test.dart';
 class HomePage extends StatelessWidget {
   static String tag = 'home-page';
   final FirebaseUser user;
+  
+   HomePage({Key key, this.user}) : super(key: key);
 
-  HomePage({Key key, this.user}) : super(key: key);
+  
   @override
   Widget build(BuildContext context) {
     //===============================================================================================
@@ -51,9 +54,9 @@ class HomePage extends StatelessWidget {
               fit: BoxFit.cover,
               image: NetworkImage(
                   "https://i.pinimg.com/originals/e2/90/9a/e2909aab62a0d9f7a4dcd095d2bdf069.gif")),
-          borderRadius: BorderRadius.circular(20.0),
+          borderRadius: BorderRadius.circular(10.0),
           color: Colors.teal),
-      margin: EdgeInsets.all(10.0),
+      margin: EdgeInsets.all(5.0),
       currentAccountPicture: new CircleAvatar(
         backgroundImage: new NetworkImage(user.photoUrl),
       ),
@@ -83,7 +86,7 @@ class HomePage extends StatelessWidget {
     );
 //===============================================================================================
     final item2 = new ListTile(
-      leading: Icon(Icons.book),
+      leading: Icon(Icons.book,color: Colors.blueAccent,),
       title: new Text("Notes"),
       trailing: new Icon(Icons.arrow_forward),
       onTap: () {
@@ -132,15 +135,19 @@ class HomePage extends StatelessWidget {
     );
 //===============================================================================================
     final drawer = new Drawer(
+         
       elevation: 10.0,
       child: new ListView(
+            
           addRepaintBoundaries: true,
-          children: <Widget>[avtar, item1, item2, item3, item4, item5, item6]),
+          children: <Widget>[avtar, item1, item2, item3, item4, item5, item6,]
+          ),
     );
 //==========================================================================================
     return Scaffold(
+      
       appBar: new AppBar(
-        actions: <Widget>[],
+          
         title: new Text('Home Page'),
         elevation: 10.0,
       ),
@@ -149,5 +156,7 @@ class HomePage extends StatelessWidget {
       body: new Container(
           color: Colors.blue, padding: EdgeInsets.all(10.0), child: card),
     );
+    
   }
+ 
 }
