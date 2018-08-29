@@ -20,13 +20,15 @@ class _FirstPageState extends State<FirstPage> {
   bool downloading2 = false;
   bool downloaded2 = false;
   var proSring = "";
-  double value = 0.0;
+  double value=0.0;
+   double value2=0.0;
+   double value3=0.0;
   bool fStatef = false;
   bool fStates = false;
   bool fStatet = false;
   String url;
   String fyesr =
-      'http://mybscit.com/wp-content/uploads/2016/07/4.76-FYBScIT-Syllabus-2016-17.pdf';
+      "http://mybscit.com/wp-content/uploads/2016/07/4.76-FYBScIT-Syllabus-2016-17.pdf";
   String syear =
       'http://mybscit.com/wp-content/uploads/2016/12/SYBSCIT-Syllabus-2017-2018.pdf';
   String tyear = 'http://archive.mu.ac.in/syllabus/4.129%20TYBSC%20IT.pdf';
@@ -64,10 +66,11 @@ class _FirstPageState extends State<FirstPage> {
 
 //===================================================================================================
   Future<void> downloadFile(int year) async {
+  
     Dio dio = Dio();
     if (year == 1) {
       url = fyesr;
-
+      
       try {
         var dir = await getExternalStorageDirectory();
 
@@ -128,7 +131,7 @@ class _FirstPageState extends State<FirstPage> {
           setState(() {
             downloading2 = true;
             proSring = ((rec / total) * 100).toStringAsFixed(0) + " %";
-            value = ((rec / total) * 100);
+            value2 = ((rec / total) * 100);
             downloaded2 = true;
             checkFile();
           });
@@ -174,33 +177,29 @@ class _FirstPageState extends State<FirstPage> {
 //==========================================================================================
   Widget fybdownload() {
     return new Container(
-      height: 120.0,
-      width: 500.0,
+      height: 130.0,
       child: Card(
-        margin: EdgeInsets.all(10.0),
-        color: Color.fromRGBO(255, 255, 255, 0.8),
+        color: Colors.white.withAlpha(150),
         elevation: 10.0,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            new RichText(
-              text: TextSpan(
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  text: "Downloading : $proSring"),
+            new ListTile(
+              leading: Icon(
+                Icons.file_download,
+                color: Colors.redAccent,
+              ),
+              title: RichText(
+                text: TextSpan(
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    text: "Downloading :$proSring"),
+              ),
             ),
-
-            new Column(
-              children: <Widget>[
-                new CircularProgressIndicator(
-                  value: value / 100,
-                ),
-              ],
+            new CircularProgressIndicator(
+              value: value / 100,
             ),
-
-            //SizedBox(height: 20.0),
           ],
         ),
       ),
@@ -209,18 +208,26 @@ class _FirstPageState extends State<FirstPage> {
 
   Widget fyadownload() {
     return new Container(
-      height: 120.0,
-      width: 500.0,
+      height: 130.0,
       child: Card(
-        margin: EdgeInsets.all(10.0),
-        color: Color.fromRGBO(255, 255, 255, 0.8),
+        color: Colors.white.withAlpha(150),
         elevation: 10.0,
-        // color: Colors.black12,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            SizedBox(
-              height: 50.0,
+            ListTile(
+              subtitle: Text("This syllabus is for year (2016/2017)"),
+              leading: Icon(Icons.looks_one, color: Colors.redAccent),
+              title: new RichText(
+                text: TextSpan(
+                  text: "First Year Syllabus",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      decorationStyle: TextDecorationStyle.wavy,
+                      letterSpacing: 1.0,
+                      color: Colors.black,
+                      fontSize: 20.7),
+                ),
+              ),
             ),
             fStatef
                 ? new RaisedButton(
@@ -234,11 +241,9 @@ class _FirstPageState extends State<FirstPage> {
                     onPressed: () => openFile(1),
                   )
                 : new RaisedButton(
-                  shape: StadiumBorder(
-                    side:BorderSide(
-                      style:BorderStyle.solid
-                    )
-                  ),
+                    padding: EdgeInsets.all(10.0),
+                    shape: StadiumBorder(
+                        side: BorderSide(style: BorderStyle.solid)),
                     elevation: 6.0,
                     color: Colors.blueAccent,
                     child: Text("Download"),
@@ -252,19 +257,28 @@ class _FirstPageState extends State<FirstPage> {
 
   Widget sybdownload() {
     return new Container(
-      height: 120.0,
-      width: 500.0,
+      height: 130.0,
       child: Card(
-        color: Color.fromRGBO(255, 255, 255, 0.6),
+        color: Colors.white.withAlpha(150),
         elevation: 10.0,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            //SizedBox(height: 20.0),
-            Text("Downloading : $proSring"),
-            new LinearProgressIndicator(
+            new ListTile(
+              leading: Icon(
+                Icons.file_download,
+                color: Colors.redAccent,
+              ),
+              title: RichText(
+                text: TextSpan(
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    text: "Downloading :$proSring"),
+              ),
+            ),
+            new CircularProgressIndicator(
               value: value / 100,
-              //backgroundColor: Colors.red,
             ),
           ],
         ),
@@ -274,30 +288,47 @@ class _FirstPageState extends State<FirstPage> {
 
   Widget syadownload() {
     return new Container(
-      height: 120.0,
-      width: 500.0,
+      height: 130.0,
       child: Card(
-        margin: EdgeInsets.all(10.0),
-        color: Color.fromRGBO(255, 255, 255, 0.8),
+        color: Colors.white.withAlpha(150),
         elevation: 10.0,
-        // color: Colors.black12,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            ListTile(
+              subtitle: Text("This syllabus is for year (2016/2017)"),
+              leading: Icon(Icons.looks_two, color: Colors.redAccent),
+              title: new RichText(
+                text: TextSpan(
+                  text: "Second Year Syllabus",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      decorationStyle: TextDecorationStyle.wavy,
+                      letterSpacing: 1.0,
+                      color: Colors.black,
+                      fontSize: 20.7),
+                ),
+              ),
+            ),
             fStates
                 ? new RaisedButton(
-                    elevation: 10.0,
+                    shape: StadiumBorder(
+                        side: BorderSide(
+                      style: BorderStyle.solid,
+                      //width: 30.0
+                    )),
+                    child: Text("Open"),
                     color: Colors.greenAccent,
                     onPressed: () => openFile(2),
-                    child: Text("Open"),
                   )
                 : new RaisedButton(
-                    elevation: 10.0,
+                    padding: EdgeInsets.all(10.0),
+                    shape: StadiumBorder(
+                        side: BorderSide(style: BorderStyle.solid)),
+                    elevation: 6.0,
                     color: Colors.blueAccent,
-                    onPressed: () => downloadFile(2),
                     child: Text("Download"),
+                    onPressed: () => downloadFile(2),
                   ),
-            SizedBox(height: 20.0),
           ],
         ),
       ),
@@ -306,27 +337,28 @@ class _FirstPageState extends State<FirstPage> {
 
   Widget tybdownload() {
     return new Container(
-      height: 120.0,
-      width: 500.0,
+      height: 130.0,
       child: Card(
-        margin: EdgeInsets.all(10.0),
-        color: Color.fromRGBO(255, 255, 255, 0.6),
+        color: Colors.white.withAlpha(150),
         elevation: 10.0,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
-            //SizedBox(height: 20.0),
-            Text.rich(
-              TextSpan(
-                text: "Downloading : $proSring",
+            new ListTile(
+              leading: Icon(
+                Icons.file_download,
+                color: Colors.redAccent,
+              ),
+              title: RichText(
+                text: TextSpan(
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    text: "Downloading :$proSring"),
               ),
             ),
-            new SizedBox(height: 90.0),
-            new LinearProgressIndicator(
+            new CircularProgressIndicator(
               value: value / 100,
-              backgroundColor: Colors.white,
-
-              //backgroundColor: Colors.red,
             ),
           ],
         ),
@@ -335,32 +367,48 @@ class _FirstPageState extends State<FirstPage> {
   }
 
   Widget tyadownload() {
-    return Container(
-      height: 120.0,
-      width: 500.0,
+    return new Container(
+      height: 130.0,
       child: Card(
-        margin: EdgeInsets.all(10.0),
-        color: Color.fromRGBO(255, 255, 255, 0.8),
+        color: Colors.white.withAlpha(150),
         elevation: 10.0,
-        // color: Colors.black12,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
-            //new SizedBox(height: 20.0),
+            ListTile(
+              subtitle: Text("This syllabus is for year (2016/2017)"),
+              leading: Icon(Icons.looks_3, color: Colors.redAccent),
+              title: new RichText(
+                text: TextSpan(
+                  text: "Third Year Syllabus",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      decorationStyle: TextDecorationStyle.wavy,
+                      letterSpacing: 1.0,
+                      color: Colors.black,
+                      fontSize: 20.7),
+                ),
+              ),
+            ),
             fStatet
                 ? new RaisedButton(
-                    color: Colors.greenAccent,
-                    elevation: 10.0,
-                    splashColor: Color.fromRGBO(247, 34, 109, 1.0),
-                    onPressed: () => openFile(3),
+                    shape: StadiumBorder(
+                        side: BorderSide(
+                      style: BorderStyle.solid,
+                      //width: 30.0
+                    )),
                     child: Text("Open"),
+                    color: Colors.greenAccent,
+                    onPressed: () => openFile(3),
                   )
                 : new RaisedButton(
+                    padding: EdgeInsets.all(10.0),
+                    shape: StadiumBorder(
+                        side: BorderSide(style: BorderStyle.solid)),
+                    elevation: 6.0,
                     color: Colors.blueAccent,
-                    onPressed: () => downloadFile(3),
                     child: Text("Download"),
+                    onPressed: () => downloadFile(3),
                   ),
-            SizedBox(height: 20.0),
           ],
         ),
       ),
@@ -376,70 +424,31 @@ class _FirstPageState extends State<FirstPage> {
         title: Text('Syllabus'),
       ),
       body: Container(
-        padding: EdgeInsets.all(10.0),
-        child: Card(
-          margin: EdgeInsets.all(8.0),
-          shape: Material().shape,
-          color: Color.fromRGBO(255, 255, 255, 0.6),
-          elevation: 8.0,
-          child: ListView(
-            children: <Widget>[
-              new SizedBox(height: 40.0),
-              new RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                  text: "First Year Syllabus",
-                  style: TextStyle(
-                      decorationStyle: TextDecorationStyle.wavy,
-                      letterSpacing: 5.0,
-                      fontWeight: FontWeight.w800,
-                      color: Colors.black,
-                      fontSize: 20.7),
-                ),
-              ),
-              downloading
-                  ? fybdownload()
+        padding: EdgeInsets.all(8.0),
+        child: ListView(
+          children: <Widget>[
+            //new SizedBox(height: 40.0),
+
+            downloading
+                ? fybdownload()
 //============================================ After condition =========================================================
-                  : fyadownload(),
+                : fyadownload(),
 //===================================================================== Second Year ==============================
-              new SizedBox(height: 40.0),
-              new RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                  text: "Second Year Syllabus",
-                  style: TextStyle(
-                      decorationStyle: TextDecorationStyle.wavy,
-                      letterSpacing: 5.0,
-                      fontWeight: FontWeight.w800,
-                      color: Colors.black,
-                      fontSize: 20.7),
-                ),
-              ),
-              downloading1
-                  ? sybdownload()
+            //new SizedBox(height: 40.0),
+
+            downloading1
+                ? sybdownload()
 //============================================= After Condition ========================================================
-                  : syadownload(),
+                : syadownload(),
 //================================================== Third Year =============================================================
-              new SizedBox(height: 40.0),
-              new RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                  text: "Third Year Syllabus",
-                  style: TextStyle(
-                      decorationStyle: TextDecorationStyle.wavy,
-                      letterSpacing: 5.0,
-                      fontWeight: FontWeight.w800,
-                      color: Colors.black,
-                      fontSize: 20.7),
-                ),
-              ),
-              downloading2
-                  ? tybdownload()
+           // new SizedBox(height: 40.0),
+
+            downloading2
+                ? tybdownload()
 
 //=============================================== After Condition ======================================================
-                  : tyadownload()
-            ],
-          ),
+                : tyadownload()
+          ],
         ),
       ),
     );

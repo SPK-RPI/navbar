@@ -19,28 +19,34 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     //===============================================================================================
     final card = new Card(
-      margin: EdgeInsets.all(8.0),
-      shape: Material().shape,
-      elevation: 8.0,
-      color: Color.fromRGBO(255, 255, 255, 0.6),
+     // margin: EdgeInsets.all(8.0),
+      elevation: 10.0,
+      color: Colors.white.withAlpha(150),
       child: new Container(
-          margin: EdgeInsets.all(8.0),
+         // margin: EdgeInsets.all(8.0),
           child: ListView(
             children: <Widget>[
-              Text(
-                'What is BscIT ?',
-                style: TextStyle(
-                  fontSize: 50.0,
+              ListTile(
+                title: RichText(
+                  text: TextSpan(
+                      style: TextStyle(
+                        fontSize: 50.0,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w300,
+                      ),
+                      text: "What is BscIT?"),
                 ),
+                 subtitle: Text(
+                  "A Bachelor of Science in Information Technology,(abbreviated BSIT or B.Sc IT), is a Bachelor's degree awarded for an undergraduate course or program in the Information technology field. The degree is normally required in order to work in the Information technology industry."),
               ),
-              Text(
-                  "A Bachelor of Science in Information Technology, (abbreviated BSIT or B.Sc IT), is a Bachelor's degree awarded for an undergraduate course or program in the Information technology field. The degree is normally required in order to work in the Information technology industry."),
+              
             ],
           )),
     );
 //==============================================================================================
     final avtar = new UserAccountsDrawerHeader(
       decoration: BoxDecoration(
+          shape: BoxShape.rectangle,
           image: DecorationImage(
               fit: BoxFit.cover,
               image: NetworkImage(
