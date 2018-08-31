@@ -76,7 +76,7 @@ class HomePage extends StatelessWidget {
     );
 //===============================================================================================
     final item1 = new ListTile(
-      leading: Icon(Icons.library_books),
+      leading: Icon(Icons.library_books,color: Colors.red),
       title: new Text("Syllabus"),
       trailing: new Icon(Icons.arrow_forward),
       onTap: () {
@@ -96,7 +96,7 @@ class HomePage extends StatelessWidget {
     );
 //===============================================================================================
     final item3 = new ListTile(
-      leading: Icon(Icons.edit),
+      leading: Icon(Icons.edit,color: Colors.deepPurple),
       title: new Text("Question Papers"),
       trailing: new Icon(Icons.arrow_forward),
       onTap: () {
@@ -106,7 +106,7 @@ class HomePage extends StatelessWidget {
     );
 //===============================================================================================
     final item4 = new ListTile(
-      leading: Icon(Icons.build),
+      leading: Icon(Icons.build,color: Colors.cyan),
       title: new Text("Projects"),
       trailing: new Icon(Icons.arrow_forward),
       onTap: () {
@@ -116,7 +116,7 @@ class HomePage extends StatelessWidget {
     );
 //===============================================================================================
     final item5 = new ListTile(
-      leading: Icon(Icons.bookmark),
+      leading: Icon(Icons.bookmark,color: Colors.blueGrey),
       title: new Text("Black Books"),
       trailing: new Icon(Icons.arrow_forward),
       onTap: () {
@@ -147,14 +147,14 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       
       appBar: new AppBar(
-          
+             backgroundColor: Colors.white,
         title: new Text('Home Page'),
         elevation: 10.0,
       ),
       drawer: drawer,
 //============================================================ Drawer ========================
       body: new Container(
-          color: Colors.blue, padding: EdgeInsets.all(10.0), child: card),
+          padding: EdgeInsets.all(10.0), child: card),
     );
     
   }

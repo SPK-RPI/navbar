@@ -61,5 +61,6 @@ class _MyAppState extends State<MyApp> {
     bool res = await SimplePermissions
         .requestPermission(Permission.WriteExternalStorage);
     print("permission request result is " + res.toString());
+  
   }
 }
