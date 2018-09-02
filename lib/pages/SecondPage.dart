@@ -26,7 +26,7 @@ class SecondPageState extends State<SecondPage>
     controller = new TabController(length: 3, vsync: this);
   }
 
-  @override
+@override
   void dispose() {
     // Dispose of the Tab Controller
     controller.dispose();
@@ -79,6 +79,11 @@ class SecondPageState extends State<SecondPage>
             bottom: getTabBar()),
         // Set the TabBar view as the body of the Scaffold
         body: getTabBarView(
-            <Widget>[new NotesfPage(), new NotessPage(), new NotestPage()]));
+            <Widget>[
+            new NotesfPage(), 
+            new NotessPage(), 
+            new NotestPage()
+            
+            ]));
   }
 }

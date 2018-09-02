@@ -5,59 +5,61 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:dio/dio.dart';
 import 'package:simple_permissions/simple_permissions.dart';
+import '../dialogs.dart';
 
 class NotesfPage extends StatefulWidget {
   static String tag = 'nfYear';
   @override
-  _NotesfPageState createState() => _NotesfPageState();
+  NotesfPageState createState() => NotesfPageState();
 }
 
-class _NotesfPageState extends State<NotesfPage> {
+class NotesfPageState extends State<NotesfPage> {
+  Dialogs dialogs = new Dialogs();
+  Dio dio = Dio();
+
   bool downloading = false;
-  bool downloaded = false;
-  
   bool downloading1 = false;
-  bool downloaded1 = false;
-  
   bool downloading2 = false;
-  bool downloaded2 = false;
-  
   bool downloading3 = false;
-  bool downloaded3 = false;
-  
   bool downloading4 = false;
-  bool downloaded4 = false;
-  
+
   var proSring = "";
-  double value=0.0;
-  double value2=0.0;
-  double value3=0.0;
-  double value4=0.0;
-  double value5=0.0;
+  double value = 0.0;
 
   bool fStateip = false;
   bool fStatede = false;
   bool fStateos = false;
-bool fStatedm = false;
-bool fStatecs = false;
+  bool fStatedm = false;
+  bool fStatecs = false;
 
-  String url;
+  final ipdp = 'Imperative_Programming_notes.pdf';
+  final dedp = 'Digital-Electronics-Notes.pdf';
+  final osdp = "Operating-System-Notes.pdf";
+  final dmdp = "Discrete-Mathematics-Notes.pdf";
+  final csdp = "Communication-Skills-Notes.pdf";
+  
   String ip =
       "https://drive.google.com/uc?export=download&id=1SXzpiA1ayfMpf-FMVQrZWYaE7GHN9cKP";
   String de =
       'https://drive.google.com/uc?export=download&id=1JhlXtqR5RFLPDSJsaSvF_aEWs9VHQ3bc';
-  String os = 'https://drive.google.com/uc?export=download&id=1KrqNSby6Ihojhb6kz44GMgZorUnlnFIT';
-String dm = 'https://drive.google.com/uc?export=download&id=1vIVD_Y5S9cj8flZyq0lSwJrC1tbyyyyv';
-String cs = 'https://drive.google.com/uc?export=download&id=1TbPDhZby-lxygdqnw6XYuIgjCVsfuLzk';
+  String os =
+      'https://drive.google.com/uc?export=download&id=1KrqNSby6Ihojhb6kz44GMgZorUnlnFIT';
+  String dm =
+      'https://drive.google.com/uc?export=download&id=1vIVD_Y5S9cj8flZyq0lSwJrC1tbyyyyv';
+  String cs =
+      'https://drive.google.com/uc?export=download&id=1TbPDhZby-lxygdqnw6XYuIgjCVsfuLzk';
+
+//=========================================================== SEMISTER 1 ========================================      
   @override
   void initState() {
     super.initState();
     checkFile();
+    
   }
-
   Future<void> checkFile() async {
-    final dir=await getExternalStorageDirectory();
-    final File file = File('${dir.path}/Imperative_Programming_notes.pdf');
+    final dir = await getExternalStorageDirectory();
+    final dpath = "${dir.path}";
+    final File file = File("$dpath/$ipdp");
     final File file1 = File('${dir.path}/Digital-Electronics-Notes.pdf');
     final File file2 = File('${dir.path}/Operating-System-Notes.pdf');
     final File file3 = File('${dir.path}/Discrete-Mathematics-Notes.pdf');
@@ -83,7 +85,7 @@ String cs = 'https://drive.google.com/uc?export=download&id=1TbPDhZby-lxygdqnw6X
       } else {
         fStatedm = false;
       }
-       if (file4.existsSync() == true) {
+      if (file4.existsSync() == true) {
         fStatecs = true;
       } else {
         fStatecs = false;
@@ -91,182 +93,127 @@ String cs = 'https://drive.google.com/uc?export=download&id=1TbPDhZby-lxygdqnw6X
     });
   }
 
+//==================================================================================================
+  Future<void> downloadFn(String dpath, int fileS, String url) async {
+    dialogs.information(
+        context, value, "| Downloading |", "Please wait..", false);
+    await dio.download(url, dpath, onProgress: (rec, total) {
+      setState(() {
+        value = ((rec / fileS) * 100);
+        proSring = value.toStringAsFixed(0) + "%";
+      });
+
+      print(proSring);
+    });
+  }
+
 //===================================================================================================
   Future<void> downloadFile(int subject) async {
- final dir = await getExternalStorageDirectory();
-    Dio dio = Dio();
+   final dir = await getExternalStorageDirectory();
+    final dpath = "${dir.path}";
     if (subject == 1) {
-      url =ip;
-      
-      try {
-        
-
-        await dio.download(url, "${dir.path}/Imperative_Programming_notes.pdf",
-                
-            onProgress: (rec, total) {
-          setState(() {
-            downloading = true;
-            proSring = ((rec / 12132961) * 100).toStringAsFixed(0) + " %";
-            value = ((rec / 12132961) * 100);
-            downloaded = true;
-            checkFile();
-          });
-        });
-      } catch (e) {
-        setState(() {
-          downloading = false;
-          print(e);
-        });
-      }
       setState(() {
-        downloading = false;
-        proSring = 'Compleated';
+        downloading = true;
+      });
+      downloadFn("$dpath/$ipdp", 12132961, ip).whenComplete(() {
         checkFile();
+        Navigator.of(context).pop();
+        downloading = false;
       });
     } else if (subject == 2) {
-      url = de;
-      try {
-        
-
-        await dio.download(url, "${dir.path}/Digital-Electronics-Notes.pdf",
-            onProgress: (rec, total) {
-          setState(() {
-            downloading1 = true;
-            proSring = ((rec / 9476463) * 100).toStringAsFixed(0) + " %";
-            value = ((rec / 9476463) * 100);
-            downloaded1 = true;
-            checkFile();
-          });
-        });
-      } catch (e) {
-        setState(() {
-          downloading1 = false;
-          print(e);
-        });
-      }
       setState(() {
-        downloading1 = false;
-        proSring = 'Compleated';
+        downloading1 = true;
+      });
+      downloadFn("$dpath/$dedp", 9476463, de).whenComplete(() {
         checkFile();
+        Navigator.of(context).pop();
+        downloading1 = false;
       });
     } else if (subject == 3) {
-      url = os;
-      try {
-        
-
-        await dio.download(url, "${dir.path}/Operating-System-Notes.pdf",
-            onProgress: (rec, total) {
-          setState(() {
-            downloading2 = true;
-            proSring = ((rec / 6556637) * 100).toStringAsFixed(0) + " %";
-            value2 = ((rec / 6556637) * 100);
-            downloaded2 = true;
-            checkFile();
-          });
-        });
-      } catch (e) {
-        setState(() {
-          downloading2 = false;
-          print(e);
-        });
-      }
       setState(() {
+        downloading2 = true;
+      });
+      downloadFn("$dpath/$osdp", 6556637, os).whenComplete(() {
+        checkFile();
+        Navigator.of(context).pop();
         downloading2 = false;
-        proSring = 'Compleated';
-        checkFile();
       });
-    }else if (subject == 4) {
-      url = os;
-      try {
-        
-
-        await dio.download(url, "${dir.path}/Discrete-Mathematics-Notes.pdf",
-            onProgress: (rec, total) {
-          setState(() {
-            downloading3 = true;
-            proSring = ((rec / 16126000) * 100).toStringAsFixed(0) + " %";
-            value3 = ((rec / 16126000) * 100);
-            downloaded3 = true;
-            checkFile();
-          });
-        });
-      } catch (e) {
-        setState(() {
-          downloading3 = false;
-          print(e);
-        });
-      }
+    } else if (subject == 4) {
       setState(() {
+        downloading3 = true;
+      });
+      downloadFn("$dpath/$dmdp", 16126000, dm).whenComplete(() {
+        checkFile();
+        Navigator.of(context).pop();
         downloading3 = false;
-        proSring = 'Compleated';
-        checkFile();
       });
-    }
-    else if (subject == 5) {
-      url = cs;
-      try {
-        
-
-        await dio.download(url, "${dir.path}/Communication-Skills-Notes.pdf",
-              
-              
-            onProgress: (rec, total) {
-              
-          setState(() {
-            downloading4 = true;
-            proSring = ((rec /18713057 ) * 100).toStringAsFixed(0) + " %";
-            value4 = ((rec / 18713057 ) * 100);
-            downloaded4 = true;
-            checkFile();
-          });
-        });
-      } catch (e) {
-        setState(() {
-          downloading4 = false;
-          print(e);
-        });
-      }
+    } else if (subject == 5) {
       setState(() {
-        downloading4 = false;
-        proSring = 'Compleated';
+        downloading4 = true;
+      });
+      downloadFn("$dpath/$csdp", 18713057 , cs).whenComplete(() {
         checkFile();
+        Navigator.of(context).pop();
+        downloading4 = false;
       });
     }
-
-    //return value;
   }
 
 //=====================================================================================================
   Future<String> openFile(int subject) async {
-    final dir=await getExternalStorageDirectory();
+    final dir = await getExternalStorageDirectory();
+    final dpath = "${dir.path}";
     if (subject == 1) {
-      return await OpenFile
-          .open("${dir.path}/Imperative_Programming_notes.pdf");
+      return await OpenFile.open("$dpath/$ipdp");
     } else if (subject == 2) {
-      return await OpenFile.open("${dir.path}/Digital-Electronics-Notes.pdf");
+      return await OpenFile.open("$dpath/$dedp");
     } else if (subject == 3) {
-      return await OpenFile.open("${dir.path}/Operating-System-Notes.pdf");
-    }
-    else if (subject == 4) {
-      return await OpenFile.open("${dir.path}/Discrete-Mathematics-Notes.pdf");
-    }
-    else if (subject == 5) {
-      return await OpenFile.open("${dir.path}/Communication-Skills-Notes.pdf");
+      return await OpenFile.open("$dpath/$osdp");
+    } else if (subject == 4) {
+      return await OpenFile.open("$dpath/$dmdp");
+    } else if (subject == 5) {
+      return await OpenFile.open("$dpath/$csdp");
     }
   }
 
 //===================================================================================================
   requestPermission() async {
-    bool res = await SimplePermissions
-        .requestPermission(Permission.WriteExternalStorage);
+    bool res = await SimplePermissions.requestPermission(
+        Permission.WriteExternalStorage);
     print("permission request result is " + res.toString());
   }
 
 //==================================================================================
 
+  /* information(double value, String text) {
+     return showDialog<Null>(
+    context: context,
+    barrierDismissible: false, // user must tap button!
+    builder: (BuildContext context) {
+      return new AlertDialog(
+        title: new Text(text),
+        content: new SingleChildScrollView(
+          child: new ListBody(
+            children: <Widget>[
+              new Text('Please Wait..'),
+              new LinearProgressIndicator(value:value/100),
+
+                
+
+            ],
+          ),
+        ),
+        
+      );
+    },
+  );
+  } */
+
 //==========================================================================================
+
+//=============================================================================================
   Widget ipbdownload() {
-    return new Container(
+    return Container(
       height: 130.0,
       child: Card(
         color: Colors.white.withAlpha(150),
@@ -288,8 +235,6 @@ String cs = 'https://drive.google.com/uc?export=download&id=1TbPDhZby-lxygdqnw6X
               ),
             ),
             new CircularProgressIndicator(
-                
-                    
               value: value / 100,
             ),
           ],
@@ -308,7 +253,7 @@ String cs = 'https://drive.google.com/uc?export=download&id=1TbPDhZby-lxygdqnw6X
           children: <Widget>[
             ListTile(
               subtitle: Text("will come soon hold on.."),
-              leading: Icon(Icons.book,  size: 59.0, color: Colors.redAccent),
+              leading: Icon(Icons.book, size: 59.0, color: Colors.redAccent),
               title: new RichText(
                 text: TextSpan(
                   text: "Imperative Programming",
@@ -339,8 +284,10 @@ String cs = 'https://drive.google.com/uc?export=download&id=1TbPDhZby-lxygdqnw6X
                     elevation: 6.0,
                     color: Colors.blueAccent,
                     child: Text("Download"),
-                    onPressed: () => downloadFile(1),
-                  ),
+                    onPressed: () {
+                      downloadFile(1);
+                      //dialogs.information(context, value, "Downloading..");
+                    }),
           ],
         ),
       ),
@@ -388,7 +335,7 @@ String cs = 'https://drive.google.com/uc?export=download&id=1TbPDhZby-lxygdqnw6X
           children: <Widget>[
             ListTile(
               subtitle: Text("Hold on it is under process"),
-              leading: Icon(Icons.book, size: 59.0,   color: Colors.redAccent),
+              leading: Icon(Icons.book, size: 59.0, color: Colors.redAccent),
               title: new RichText(
                 text: TextSpan(
                   text: "Digital Electronics",
@@ -468,7 +415,7 @@ String cs = 'https://drive.google.com/uc?export=download&id=1TbPDhZby-lxygdqnw6X
           children: <Widget>[
             ListTile(
               subtitle: Text("This text is under process"),
-              leading: Icon(Icons.book, size: 59.0,color: Colors.redAccent),
+              leading: Icon(Icons.book, size: 59.0, color: Colors.redAccent),
               title: new RichText(
                 text: TextSpan(
                   text: "Operating System",
@@ -548,7 +495,7 @@ String cs = 'https://drive.google.com/uc?export=download&id=1TbPDhZby-lxygdqnw6X
           children: <Widget>[
             ListTile(
               subtitle: Text("This is under process please hold on"),
-              leading: Icon(Icons.book, size:59.0,color: Colors.redAccent),
+              leading: Icon(Icons.book, size: 59.0, color: Colors.redAccent),
               title: new RichText(
                 text: TextSpan(
                   text: "Discrete Mathematics",
@@ -586,7 +533,8 @@ String cs = 'https://drive.google.com/uc?export=download&id=1TbPDhZby-lxygdqnw6X
       ),
     );
   }
- Widget csbdownload() {
+
+  Widget csbdownload() {
     return new Container(
       height: 130.0,
       child: Card(
@@ -627,7 +575,7 @@ String cs = 'https://drive.google.com/uc?export=download&id=1TbPDhZby-lxygdqnw6X
           children: <Widget>[
             ListTile(
               subtitle: Text("This one too under process please hold on"),
-              leading: Icon(Icons.book,size: 59.0,     color: Colors.redAccent),
+              leading: Icon(Icons.book, size: 59.0, color: Colors.redAccent),
               title: new RichText(
                 text: TextSpan(
                   text: "Communication Skills",
@@ -666,17 +614,20 @@ String cs = 'https://drive.google.com/uc?export=download&id=1TbPDhZby-lxygdqnw6X
     );
   }
 
+//======================================================================================================
+
 //==================================================================================================
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
-      body: Container(
-        padding: EdgeInsets.all(8.0),
-        child: ListView(
-          children: <Widget>[
-            //new SizedBox(height: 40.0),
-        new RichText(
+        backgroundColor: Colors.blue,
+        body: Container(
+          padding: EdgeInsets.all(8.0),
+          child: ListView(
+            children: <Widget>[
+              //new SizedBox(height: 40.0),
+
+              new RichText(
                 text: TextSpan(
                     style: TextStyle(
                       letterSpacing: 5.0,
@@ -684,31 +635,20 @@ String cs = 'https://drive.google.com/uc?export=download&id=1TbPDhZby-lxygdqnw6X
                       color: Colors.black,
                       fontWeight: FontWeight.w300,
                     ),
-                    text: "Semister I"
-                ),
-        ),
-            downloading
-                ? ipbdownload()
-                : ipadownload(),
+                    text: "Semister I"),
+              ),
+              downloading ? ipbdownload() : ipadownload(),
 
-            //new SizedBox(height: 40.0),
+              //new SizedBox(height: 40.0),
 
-            downloading1
-                ? debdownload()
-                : deadownload(),
-           // new SizedBox(height: 40.0),
+              downloading1 ? debdownload() : deadownload(),
+              // new SizedBox(height: 40.0),
 
-            downloading2
-                ? osbdownload()
-                : osadownload(),
+              downloading2 ? osbdownload() : osadownload(),
 
-            downloading3
-            ?dmbdownload()
-            :dmadownload(), 
-             downloading4
-            ?csbdownload()
-            :csadownload(),
-             new RichText(
+              downloading3 ? dmbdownload() : dmadownload(),
+              downloading4 ? csbdownload() : csadownload(),
+              new RichText(
                 text: TextSpan(
                     style: TextStyle(
                       letterSpacing: 5.0,
@@ -716,12 +656,10 @@ String cs = 'https://drive.google.com/uc?export=download&id=1TbPDhZby-lxygdqnw6X
                       color: Colors.black,
                       fontWeight: FontWeight.w300,
                     ),
-                    text: "Semister II"
-                ),
-        ),   
-          ],
-        ),
-      ),
-    );
+                    text: "Semister II"),
+              ),
+            ],
+          ),
+        ));
   }
 }

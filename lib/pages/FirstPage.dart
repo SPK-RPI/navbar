@@ -4,47 +4,70 @@ import 'package:open_file/open_file.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:dio/dio.dart';
-
+import '../dialogs.dart';
 
 class FirstPage extends StatefulWidget {
   static String tag = 'first_Page';
+
   @override
   _FirstPageState createState() => _FirstPageState();
 }
 
 class _FirstPageState extends State<FirstPage> {
+  Dialogs dialogs = new Dialogs();
   bool downloading = false;
+  Dio dio = Dio();
 
-  bool downloaded = false;
   bool downloading1 = false;
-  bool downloaded1 = false;
+
   bool downloading2 = false;
-  bool downloaded2 = false;
+
   var proSring = "";
-  double value=0.0;
-   double value2=0.0;
-   double value3=0.0;
+  double value = 0.0;
+  double value2 = 0.0;
+  double value3 = 0.0;
   bool fStatef = false;
   bool fStates = false;
   bool fStatet = false;
   String url;
-  String fyesr =
+
+  final fydpath = "4.76-FYBScIT-Syllabus-2016-17.pdf";
+  final sydpath = "SYBSCIT-Syllabus-2017-2018.pdf";
+  final thdpath = "TYBSCIT-Syllabus-2017-2018.pdf";
+
+  final fyesr =
       "http://mybscit.com/wp-content/uploads/2016/07/4.76-FYBScIT-Syllabus-2016-17.pdf";
-  String syear =
+  final syear =
       'http://mybscit.com/wp-content/uploads/2016/12/SYBSCIT-Syllabus-2017-2018.pdf';
-  String tyear = 'http://archive.mu.ac.in/syllabus/4.129%20TYBSC%20IT.pdf';
+  final tyear = 'http://archive.mu.ac.in/syllabus/4.129%20TYBSC%20IT.pdf';
 
   @override
   void initState() {
     super.initState();
     checkFile();
-    
   }
+
+//=================================================================================================
+  Future<void> downloadFn(String dpath, String url) async {
+    dialogs.information(
+        context, value, "| Downloading |", "Please wait..", false);
+    await dio.download(url, dpath, onProgress: (rec, total) {
+      setState(() {
+        value = ((rec / total) * 100);
+        proSring = value.toStringAsFixed(0) + "%";
+      });
+
+      print(proSring);
+    });
+  }
+
+//==================================================================================================
   Future<void> checkFile() async {
-    var dir = await getExternalStorageDirectory();
-    final File file = File('${dir.path}/4.76-FYBScIT-Syllabus-2016-17.pdf');
-    final File file1 = File('${dir.path}/SYBSCIT-Syllabus-2017-2018.pdf');
-    final File file2 = File('${dir.path}/TYBSCIT-Syllabus-2017-2018.pdf');
+    final dir = await getExternalStorageDirectory();
+    final dpath = "${dir.path}";
+    final File file = File('$dpath/$fydpath');
+    final File file1 = File('$dpath/$sydpath');
+    final File file2 = File('$dpath/$thdpath');
     setState(() {
       if (file.existsSync() == true) {
         fStatef = true;
@@ -66,112 +89,57 @@ class _FirstPageState extends State<FirstPage> {
 
 //===================================================================================================
   Future<void> downloadFile(int year) async {
-  
-    Dio dio = Dio();
+    var dir = await getExternalStorageDirectory();
+    final dpath = "${dir.path}";
     if (year == 1) {
-      url = fyesr;
-      
-      try {
-        var dir = await getExternalStorageDirectory();
-
-        await dio.download(url, "${dir.path}/4.76-FYBScIT-Syllabus-2016-17.pdf",
-            onProgress: (rec, total) {
-          setState(() {
-            downloading = true;
-            proSring = ((rec / total) * 100).toStringAsFixed(0) + " %";
-            value = ((rec / total) * 100);
-            downloaded = true;
-            checkFile();
-          });
-        });
-      } catch (e) {
-        setState(() {
-          downloading = false;
-          print(e);
-        });
-      }
       setState(() {
-        downloading = false;
-        proSring = 'Compleated';
+        downloading = true;
+      });
+      downloadFn("$dpath/$fydpath", "$fyesr").whenComplete(() {
         checkFile();
+        Navigator.of(context).pop();
+        downloading = false;
       });
     } else if (year == 2) {
-      url = syear;
-      try {
-        var dir = await getExternalStorageDirectory();
-
-        await dio.download(url, "${dir.path}/SYBSCIT-Syllabus-2017-2018.pdf",
-            onProgress: (rec, total) {
-          setState(() {
-            downloading1 = true;
-            proSring = ((rec / total) * 100).toStringAsFixed(0) + " %";
-            value = ((rec / total) * 100);
-            downloaded1 = true;
-            checkFile();
-          });
-        });
-      } catch (e) {
-        setState(() {
-          downloading1 = false;
-          print(e);
-        });
-      }
       setState(() {
-        downloading1 = false;
-        proSring = 'Compleated';
+        downloading1 = true;
+      });
+      downloadFn("$dpath/$sydpath", "$syear").whenComplete(() {
         checkFile();
+        Navigator.of(context).pop();
+        downloading1 = false;
       });
     } else if (year == 3) {
-      url = tyear;
-      try {
-        var dir = await getExternalStorageDirectory();
-
-        await dio.download(url, "${dir.path}/TYBSCIT-Syllabus-2017-2018.pdf",
-            onProgress: (rec, total) {
-          setState(() {
-            downloading2 = true;
-            proSring = ((rec / total) * 100).toStringAsFixed(0) + " %";
-            value2 = ((rec / total) * 100);
-            downloaded2 = true;
-            checkFile();
-          });
-        });
-      } catch (e) {
-        setState(() {
-          downloading2 = false;
-          print(e);
-        });
-      }
       setState(() {
-        downloading2 = false;
-        proSring = 'Compleated';
+        downloading2 = true;
+      });
+      downloadFn("$dpath/$thdpath", "$tyear").whenComplete(() {
         checkFile();
+        Navigator.of(context).pop();
+        downloading2 = false;
       });
     }
-
-    //return value;
   }
 
 //=====================================================================================================
   Future<String> openFile(int year) async {
-    var dir = await getExternalStorageDirectory();
+    final dir = await getExternalStorageDirectory();
+    final dpath = "${dir.path}";
     if (year == 1) {
-      return await OpenFile
-          .open("${dir.path}/4.76-FYBScIT-Syllabus-2016-17.pdf");
+      return await OpenFile.open("$dpath/$fydpath");
     } else if (year == 2) {
-      return await OpenFile.open("${dir.path}/SYBSCIT-Syllabus-2017-2018.pdf");
+      return await OpenFile.open("$dpath/$sydpath");
     } else if (year == 3) {
-      return await OpenFile.open("${dir.path}/TYBSCIT-Syllabus-2017-2018.pdf");
+      return await OpenFile.open("$dpath/$thdpath");
     }
   }
 
 //===================================================================================================
- 
 
 //==================================================================================
 
 //==========================================================================================
-  Widget fybdownload() {
+  fybdownload() {
     return new Container(
       height: 130.0,
       child: Card(
@@ -274,7 +242,7 @@ class _FirstPageState extends State<FirstPage> {
               ),
             ),
             new CircularProgressIndicator(
-              value: value / 100,
+              value: value2 / 100,
             ),
           ],
         ),
@@ -354,7 +322,7 @@ class _FirstPageState extends State<FirstPage> {
               ),
             ),
             new CircularProgressIndicator(
-              value: value / 100,
+              value: value3 / 100,
             ),
           ],
         ),
@@ -414,15 +382,14 @@ class _FirstPageState extends State<FirstPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: null,
       backgroundColor: Colors.blue,
       appBar: AppBar(
-           backgroundColor: Colors.redAccent,
+        backgroundColor: Colors.redAccent,
         elevation: 10.0,
         title: Text('Syllabus'),
       ),
       body: Container(
-          color: Colors.redAccent,
+        color: Colors.redAccent,
         padding: EdgeInsets.all(8.0),
         child: ListView(
           children: <Widget>[
@@ -440,7 +407,7 @@ class _FirstPageState extends State<FirstPage> {
 //============================================= After Condition ========================================================
                 : syadownload(),
 //================================================== Third Year =============================================================
-           // new SizedBox(height: 40.0),
+            // new SizedBox(height: 40.0),
 
             downloading2
                 ? tybdownload()

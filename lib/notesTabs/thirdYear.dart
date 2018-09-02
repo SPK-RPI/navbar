@@ -7,13 +7,13 @@ import 'package:dio/dio.dart';
 import 'package:simple_permissions/simple_permissions.dart';
 
 class NotestPage extends StatefulWidget {
-  static String tag = 'nfYear';
+  static String tag = 'ntYear';
   @override
   _NotestPageState createState() => _NotestPageState();
 }
 
 class _NotestPageState extends State<NotestPage> {
-  bool downloading = false;
+ /*  bool downloading = false;
   bool downloaded = false;
   bool downloading1 = false;
   bool downloaded1 = false;
@@ -449,5 +449,11 @@ class _NotestPageState extends State<NotestPage> {
         ),
       ),
     );
-  }
+  } */
+   @override
+    Widget build(BuildContext context){
+      return Scaffold(
+        
+      );
+    }
 }

@@ -7,7 +7,7 @@ dependencies:
   firebase_auth: "^0.5.11"
   google_sign_in: "^3.0.4"
   firebase_analytics: "^1.0.1"
-  flutter_downloader: ^0.1.0
+  #flutter_downloader: ^0.1.0
   path_provider: any
   dio: any
   open_file: ^1.0.7

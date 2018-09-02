@@ -10,7 +10,9 @@ import './pages/test.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:simple_permissions/simple_permissions.dart';
-
+import './notesTabs/firstYear.dart';
+import './notesTabs/secondYear.dart';
+import './notesTabs/thirdYear.dart';
 void main() => runApp(new MyApp());
 
 class MyApp extends StatefulWidget {
@@ -21,7 +23,9 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final FirebaseAnalytics analytics = new FirebaseAnalytics();
   final routes = <String, WidgetBuilder>{
-    
+    NotestPage.tag: (context) => new NotestPage(),
+    NotessPage.tag: (context) => new NotessPage(),
+    NotesfPage.tag: (context) => new NotesfPage(),
     TestPage.tag: (context) => new TestPage(),
     LoginPage.tag: (context) => new LoginPage(),
     HomePage.tag: (context) => new HomePage(),

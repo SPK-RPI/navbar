@@ -7,13 +7,13 @@ import 'package:dio/dio.dart';
 import 'package:simple_permissions/simple_permissions.dart';
 
 class NotessPage extends StatefulWidget {
-  static String tag = 'nfYear';
+  static String tag = 'nsYear';
   @override
   _NotessPageState createState() => _NotessPageState();
 }
 
 class _NotessPageState extends State<NotessPage> {
-  bool downloading = false;
+ /* bool downloading = false;
   bool downloaded = false;
   bool downloading1 = false;
   bool downloaded1 = false;
@@ -33,7 +33,7 @@ class _NotessPageState extends State<NotessPage> {
       'http://mybscit.com/wp-content/uploads/2016/12/SYBSCIT-Syllabus-2017-2018.pdf';
   String tyear = 'http://archive.mu.ac.in/syllabus/4.129%20TYBSC%20IT.pdf';
 
-  @override
+   @override
   void initState() {
     super.initState();
     checkFile();
@@ -448,5 +448,13 @@ class _NotessPageState extends State<NotessPage> {
         ),
       ),
     );
-  }
+  }  */
+  @override
+    Widget build(BuildContext context){
+      return Scaffold(
+        
+      );
+    }
+
+    
 }
